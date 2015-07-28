@@ -84,7 +84,7 @@ sub trigger($$) {
 
 	my $request_body = {
 		'service_key' => $self->{service_key},
-		'incident_key' => $params->{incident_key} // $self->{incident_key},
+		'incident_key' => (defined $params->{incident_key}) ? $params->{incident_key} : $self->{incident_key},
 		'event_type' => $self->{trigger_key},
 		'description' => $params->{description},
 		'details' => $details
@@ -152,8 +152,8 @@ sub resolve($$) {
 	}
 
 	my $request_body = {
-		service_key => $params->{service_key} // $self->{service_key},
-		incident_key => $params->{incident_key} // $self->{incident_key},
+		service_key => (defined $params->{service_key}) ? $params->{service_key} : $self->{service_key},
+		incident_key => (defined $params->{service_key}) ? $params->{incident_key} : $self->{incident_key},
 		event_type => $self->{resolve_key},
 		description => $params->{details},
 		details => $details
